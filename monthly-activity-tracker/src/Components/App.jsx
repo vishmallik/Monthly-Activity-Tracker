@@ -1,36 +1,36 @@
 import Card from "./Card";
 import React from "react";
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { days, months } from "../data";
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       activities: [],
+      inputValue: "",
     };
   }
   addActivity = (event) => {
     event.preventDefault();
-    this.setState((prevState) => {
-      return {
-        activities: prevState.activities.concat({
-          id: Date.now(),
-          name: event.target.name.value,
-          month: months[new Date().getMonth()],
-        }),
-      };
+    this.setState(
+      (prevState) => {
+        return {
+          activities: prevState.activities.concat({
+            id: Date.now(),
+            name: this.state.inputValue,
+            month: months[new Date().getMonth()],
+            days,
+          }),
+        };
+      },
+      () => {
+        this.setState({ inputValue: "" });
+      }
+    );
+  };
+  handleChange = (event) => {
+    this.setState({
+      inputValue: event.target.value,
     });
   };
   deleteActivity = (id) => {
@@ -40,6 +40,21 @@ export default class App extends React.Component {
           (activity) => activity.id !== id
         ),
       };
+    });
+  };
+  selectDays = (id, day) => {
+    const activities = JSON.parse(JSON.stringify(this.state.activities));
+    activities.forEach((activity) => {
+      if (activity.id === id) {
+        activity.days.forEach((d) => {
+          if (d.id === day) {
+            d.isDone = !d.isDone;
+          }
+        });
+      }
+    });
+    this.setState({
+      activities: activities,
     });
   };
   componentDidMount() {
@@ -63,18 +78,24 @@ export default class App extends React.Component {
             type="text"
             name="name"
             id=""
-            value={this.state.activities.name}
+            value={this.state.inputValue}
             placeholder="eg. Coding"
+            onChange={this.handleChange}
           />
           <input type="submit" value="Add Activity" />
         </form>
-        {this.state.activities.map((activity) => (
-          <Card
-            {...activity}
-            key={activity.id}
-            deleteActivity={this.deleteActivity}
-          />
-        ))}
+
+        {this.state.activities.map((activity) => {
+          console.log(activity);
+          return (
+            <Card
+              {...activity}
+              key={activity.id}
+              deleteActivity={this.deleteActivity}
+              selectDays={this.selectDays}
+            />
+          );
+        })}
       </div>
     );
   }

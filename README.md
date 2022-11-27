@@ -7,6 +7,7 @@ This App helps to track your acivities for you. You can add as many activities a
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 [![React.js](https://img.shields.io/badge/Frontend-React.js-blue)](https://reactjs.org/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/46d4b755-6535-4bbe-a6a9-a8935a24714d/deploy-status)](https://app.netlify.com/sites/monthly-activity-tracker/deploys)
 
 ## Features
 

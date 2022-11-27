@@ -1,6 +1,7 @@
 import Card from "./Card";
 import React from "react";
 import { days, months } from "../data";
+import Footer from "./Footer";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -71,32 +72,38 @@ export default class App extends React.Component {
   };
   render() {
     return (
-      <div className="container">
-        <h1>Monthly Activity Tracker</h1>
-        <form className="input" onSubmit={this.addActivity}>
-          <input
-            type="text"
-            name="name"
-            id=""
-            value={this.state.inputValue}
-            placeholder="eg. Coding"
-            onChange={this.handleChange}
-          />
-          <input type="submit" value="Add Activity" />
-        </form>
-
-        {this.state.activities.map((activity) => {
-          console.log(activity);
-          return (
-            <Card
-              {...activity}
-              key={activity.id}
-              deleteActivity={this.deleteActivity}
-              selectDays={this.selectDays}
+      <>
+        <div className="container">
+          <h1>Monthly Activity Tracker</h1>
+          <form className="input" onSubmit={this.addActivity}>
+            <input
+              type="text"
+              name="name"
+              id=""
+              value={this.state.inputValue}
+              placeholder="eg. Coding"
+              onChange={this.handleChange}
             />
-          );
-        })}
-      </div>
+            <input type="submit" value="Add Activity" />
+          </form>
+          <p className="hint">
+            Hint: Add an activity you want to track. After adding click on the
+            dates below to track activity
+          </p>
+
+          {this.state.activities.map((activity) => {
+            return (
+              <Card
+                {...activity}
+                key={activity.id}
+                deleteActivity={this.deleteActivity}
+                selectDays={this.selectDays}
+              />
+            );
+          })}
+        </div>
+        <Footer />
+      </>
     );
   }
 }

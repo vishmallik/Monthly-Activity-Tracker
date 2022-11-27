@@ -153,6 +153,7 @@ img {
   max-width: 80%;
   margin: 0 auto;
   text-align: center;
+  min-height: 80vh;
 }
 .wrap {
   flex-wrap: wrap;
@@ -256,4 +257,11 @@ form {
 .active {
   background-color: turquoise;
   border: 1px solid turquoise;
+}
+.hint {
+  color: lightgray;
+  font-style: italic;
+}
+.fa-github:hover {
+  color: turquoise !important;
 }
